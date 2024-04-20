@@ -8,7 +8,7 @@ export const userSchema = new Schema(
     password: { type: String, required: true },
     usertype: { type: String, enum: ["admin", "user"], default: "user" },
     location: { type: [Number], index: "2d", required: false },
-    booking: [bookingSchema],
+    bookings: [bookingSchema],
   },
   { versionKey: false }
 );
