@@ -1,0 +1,20 @@
+### Test POST request for signing up
+POST http://localhost:3000/users/signup
+Content-Type: application/json
+
+{
+    "fullname": "Arif Rahman",
+    "email": "mdarif.rahman@miu.edu",
+    "password": "1234abcd",
+    "usertype": "admin",
+    "location": [40.7128, -74.0060]
+}
+
+### Test POST request for signing in
+POST http://localhost:3000/users/signin
+Content-Type: application/json
+
+{
+    "email": "mdarif.rahman@miu.edu",
+    "password": "1234abcd"
+}
