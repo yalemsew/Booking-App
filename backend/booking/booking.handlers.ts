@@ -4,18 +4,20 @@ import { StandardResponse } from "../helpers/types";
 import { Booking } from "./booking.model";
 import { UserModel } from "../users/users.model";
 
+//getBooking
 export const getBooking: RequestHandler<
   { user_id: string },
-  StandardResponse<Booking>
+  StandardResponse<string>
 > = async (req, res, next) => {
   try {
     const user_id = req.params.user_id;
     const result = await UserModel.findOne({ _id: user_id }, { booking: 1 });
-    res.status(200).json({ success: true, data: result });
+    res.status(200).json({ success: true, data: "fetched" });
   } catch (error) {
     next(error);
   }
 };
+//addBooking
 export const addBooking: RequestHandler<
   unknown,
   StandardResponse<number>,
@@ -32,7 +34,7 @@ export const addBooking: RequestHandler<
     res.status(200).json({ success: true, data: result.modifiedCount });
   } catch (error) {}
 };
-
+//deleteBooking
 export const deleteBooking: RequestHandler<
   { user_id: string; booking_id: string },
   StandardResponse<number>
