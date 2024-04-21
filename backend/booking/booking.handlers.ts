@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import { RequestHandler } from "express";
 import { ErrorWithStatus, StandardResponse } from "../helpers/types";
 import { Booking } from "./booking.model";
-import { UserModel } from "../users/users.model";
+import { User, UserModel } from "../users/users.model";
 import { BikeModel } from "../bike/bike.model";
 
 export interface CreateBooking {
@@ -17,7 +17,7 @@ export const getBooking: RequestHandler<
 > = async (req, res, next) => {
   try {
     const { _id: user_id, usertype } = req.token;
-    const userObject = await UserModel.findOne({ _id: user_id }, {});
+    const userObject = await UserModel.findOne({ _id: user_id });
     res.status(200).json({ success: true, data: userObject?.bookings });
   } catch (error) {
     next(error);
@@ -34,12 +34,12 @@ export const addBooking: RequestHandler<
     const { _id: user_id, usertype } = req.token;
     const bookToCreate = req.body;
 
-    const bikeObj = await BikeModel.findOne({ _id: bookToCreate.bike_id }, {});
+    const bikeObj = await BikeModel.findOne({ _id: bookToCreate.bike_id });
     if (!bikeObj && bikeObj?.status == "booked") {
       throw new ErrorWithStatus("Bike not found", 404);
     }
 
-    const userObj = await UserModel.findOne({ _id: user_id }, {});
+    const userObj = await UserModel.findOne({ _id: user_id });
 
     if (userObj?.bookings) {
       const userBookings = userObj.bookings;
