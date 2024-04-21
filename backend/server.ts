@@ -15,7 +15,7 @@ db_connect();
 
 // routers
 app.use("/users", userRouter);
-app.use("/bike", verifyToken, bikeRouters);
+app.use("/bike", bikeRouters);
 app.use("/booking", verifyToken, bookingRouters);
 
 app.all("*", noRouteHandler);

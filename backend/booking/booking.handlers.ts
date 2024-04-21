@@ -3,22 +3,25 @@ import { RequestHandler } from "express";
 import { ErrorWithStatus, StandardResponse } from "../helpers/types";
 import { Booking } from "./booking.model";
 import { User, UserModel } from "../users/users.model";
-import { BikeModel } from "../bike/bike.model";
+import { Bike, BikeModel } from "../bike/bike.model";
 
-export interface CreateBooking {
+export type BookingRequestType = {
   bike_id: string;
-  date: Date;
-}
+  bookingDate?: Date;
+};
 
 //getBooking
 export const getBooking: RequestHandler<
   { user_id: string },
-  StandardResponse<Booking>
+  StandardResponse<Booking[]>
 > = async (req, res, next) => {
   try {
     const { _id: user_id, usertype } = req.token;
-    const userObject = await UserModel.findOne({ _id: user_id });
-    res.status(200).json({ success: true, data: userObject?.bookings });
+    const userObject: User | null = await UserModel.findOne({ _id: user_id });
+    if (!userObject) {
+      throw new ErrorWithStatus("User not found", 404);
+    }
+    res.status(200).json({ success: true, data: userObject!.bookings });
   } catch (error) {
     next(error);
   }
@@ -27,15 +30,20 @@ export const getBooking: RequestHandler<
 export const addBooking: RequestHandler<
   unknown,
   StandardResponse<number>,
-  CreateBooking,
+  BookingRequestType,
   unknown
 > = async (req, res, next) => {
   try {
     const { _id: user_id, usertype } = req.token;
     const bookToCreate = req.body;
+    if (!bookToCreate) {
+      throw new ErrorWithStatus("Booking data is required", 400);
+    }
 
-    const bikeObj = await BikeModel.findOne({ _id: bookToCreate.bike_id });
-    if (!bikeObj && bikeObj?.status == "booked") {
+    const bikeObj: Bike | undefined | null = await BikeModel.findOne({
+      _id: bookToCreate.bike_id,
+    });
+    if (!bikeObj || bikeObj?.status == "booked") {
       throw new ErrorWithStatus("Bike not found", 404);
     }
 
@@ -53,7 +61,7 @@ export const addBooking: RequestHandler<
 
     const newBooking: Booking = {
       bike: bikeObj,
-      book_date: bookToCreate.date,
+      book_date: bookToCreate.bookingDate || new Date(),
       return_date: new Date(Date.now() + 86400000),
     };
     const result = await UserModel.updateOne(
@@ -72,13 +80,56 @@ export const addBooking: RequestHandler<
     next(error);
   }
 };
+
+//update booking
+export const updateBooking: RequestHandler<
+  { booking_id: string },
+  StandardResponse<number>,
+  BookingRequestType
+> = async (req, res, next) => {
+  try {
+    const { booking_id } = req.params;
+    const { bike_id, bookingDate } = req.body;
+    const { _id: user_id } = req.token;
+
+    const user = await UserModel.findOne({ _id: user_id });
+    if (!user) throw new ErrorWithStatus("User not found", 404);
+
+    const bike = await BikeModel.findOne({ _id: bike_id });
+    console.log("bike is ", bike);
+    if (!bike) throw new ErrorWithStatus("Bike not found", 404);
+
+    const bookingIndex = user.bookings.findIndex(
+      (existBook) => existBook._id?.toString() == booking_id
+    );
+
+    if (bookingIndex == -1) throw new ErrorWithStatus("Booking not found", 404);
+
+    const booking = user.bookings[bookingIndex];
+    const updatedBooking = {
+      ...booking,
+      bike: bike,
+      book_date: bookingDate || booking.book_date,
+      return_date: new Date(Date.now() + 86400000),
+    };
+    user.bookings[bookingIndex] = updatedBooking;
+    const result = await UserModel.updateOne(
+      { _id: user_id },
+      { bookings: user.bookings }
+    );
+    res.status(200).json({ success: true, data: result.modifiedCount });
+  } catch (error) {
+    next(error);
+  }
+};
 //deleteBooking
 export const deleteBooking: RequestHandler<
-  { user_id: string; booking_id: string },
+  { booking_id: string },
   StandardResponse<number>
 > = async (req, res, next) => {
   try {
-    const { user_id, booking_id } = req.params;
+    const { _id: user_id } = req.token;
+    const { booking_id } = req.params;
     const result = await UserModel.updateOne(
       { _id: user_id },
       { $pull: { bookings: { _id: booking_id } } }

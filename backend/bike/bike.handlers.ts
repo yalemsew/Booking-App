@@ -25,6 +25,12 @@ export const addBike: RequestHandler<
     const { _id: user_id, usertype } = req.token;
     if (usertype == "admin") {
       const new_bike = req.body;
+      const isAlreadyExist = await BikeModel.findOne({
+        plate_number: new_bike.plate_number,
+      });
+      if (isAlreadyExist) {
+        throw new ErrorWithStatus("Bike already exists", 400);
+      }
       const results = await BikeModel.create({
         ...new_bike,
       });
