@@ -1,0 +1,36 @@
+# Prepare the content for the bike.test.http file
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjI0MDM5OTJkYzIxNDVmOWJmNGY3YTMiLCJmdWxsbmFtZSI6IkFyaWYgUmFobWFuIiwidXNlcnR5cGUiOiJhZG1pbiIsImVtYWlsIjoibWRhcmlmLnJhaG1hbkBtaXUuZWR1IiwiaWF0IjoxNzEzNzEzMTE2fQ.oKA9L9NYEEKm_rrxcsrvhSfsSy24MFaHQSlUSzWglzc
+@bike_id = 66253112cfa4196c133c38ee
+
+### Get all bikes
+GET http://localhost:3000/bike
+Authorization: Bearer {{token}}
+
+### Add a bike
+POST http://localhost:3000/bike
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate_number": "XYZ1234",
+  "color": "blue",
+  "status": "available"
+}
+
+
+### Update a bike
+PUT http://localhost:3000/bike/{{bike_id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate_number": "XYZ1234",
+  "color": "green",
+  "status": "booked"
+}
+
+### Delete a bike by ID
+DELETE http://localhost:3000/bike/{{bike_id}}
+Authorization: Bearer {{token}}
+

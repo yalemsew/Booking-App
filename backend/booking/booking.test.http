@@ -1,0 +1,33 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjI0MDM5OTJkYzIxNDVmOWJmNGY3YTMiLCJmdWxsbmFtZSI6IkFyaWYgUmFobWFuIiwidXNlcnR5cGUiOiJhZG1pbiIsImVtYWlsIjoibWRhcmlmLnJhaG1hbkBtaXUuZWR1IiwiaWF0IjoxNzEzNzEzMTE2fQ.oKA9L9NYEEKm_rrxcsrvhSfsSy24MFaHQSlUSzWglzc
+
+@booking_id = 66255c1cd885534ed523bbbf
+@bike_id = 66253112cfa4196c133c38ee
+
+### Get bookings for user
+GET http://localhost:3000/booking
+Authorization: Bearer {{token}}
+
+
+### Add booking
+POST http://localhost:3000/booking
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bike_id": "66253112cfa4196c133c38ee",
+  "bookingDate": "2023-04-21"
+}
+
+### Update booking by ID
+PUT http://localhost:3000/booking/{{booking_id}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "bike_id": "66253112cfa4196c133c38ee",
+  "bookingDate": "2023-04-22T12:00:00Z"
+}
+
+### Delete booking by ID
+DELETE http://localhost:3000/booking/{{booking_id}}
+Authorization: Bearer {{token}}
