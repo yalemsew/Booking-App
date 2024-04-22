@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Booking, BookingResponse } from "../helper/types";
+import { Booking, BookingResponse, StandardResponse } from "../helper/types";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { addTokenInterceptor } from "./token.interceptor";
@@ -14,12 +14,18 @@ export class BookingService {
   authService = inject(AuthService);
   userId: string = this.authService.$state().id;
 
+  #hostBooking = "http://localhost:3000/booking";
+
+  postBooking(bike_id: string) {
+    return this.httpClient.post<StandardResponse>(this.#hostBooking, {
+      bike_id,
+    });
+  }
+
   getBookings(): Observable<BookingResponse> {
-    return this.httpClient.get<any>(`http://localhost:3000/booking`);
+    return this.httpClient.get<any>(this.#hostBooking);
   }
-  postBookings(newBooking: Booking) {
-    console.log("Booking list service");
-  }
+
   putBooking(updatedBooking: Booking) {
     console.log("updated Booking");
   }

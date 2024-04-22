@@ -15,8 +15,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AppComponent {
   title = "new-app";
-  readonly #http = inject(HttpClient);
-  $bikeList = signal<[]>([]);
+  // readonly #http = inject(HttpClient);
+  // $bikeList = signal<[]>([]);
 
   constructor() {}
 }

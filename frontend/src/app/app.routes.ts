@@ -8,7 +8,7 @@ import { BikeComponent } from "./bike/bike.component";
 import { BikeListComponent } from "./bike-list/bike-list.component";
 import { HomeComponent } from "./home/home.component";
 import { BookingListComponent } from "./user-home/booking-list/booking-list.component";
-import { BikeFormComponent } from "./bike/bike-form/bike-form.component";
+import { BikeFormComponent } from "./home/bike-form/bike-form.component";
 import { BookListComponent } from "./booking/book-list/book-list.component";
 
 export const routes: Routes = [
