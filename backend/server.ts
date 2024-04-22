@@ -6,11 +6,13 @@ import userRouter from "./users/users.router";
 import { verifyToken } from "./users/users.middleware";
 import bikeRouters from "./bike/bike.router";
 import bookingRouters from "./booking/booking.router";
+var cors = require("cors");
 
 const app = express();
 
 db_connect();
 
+app.use(cors());
 // app.use(morgan("dev")); //for log purpose
 
 // routers
