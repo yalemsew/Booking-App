@@ -1,28 +1,27 @@
-.bike-item { /* Class for each bike item */
-    margin-bottom: 15px; /* Add spacing between bikes */
-    padding: 10px; /* Add padding for content */
-    border: 1px solid #ddd; /* Add a thin border */
-    border-radius: 4px; /* Add rounded corners */
-  }
-  
-  .bike-item label { /* Styles for labels */
-    display: block; /* Display labels on their own line */
-    margin-bottom: 5px; /* Add space between label and value */
-    font-weight: bold; /* Make labels visually distinct */
-  }
-  
-  .bike-item button { /* Styles for button */
-    background-color: #4CAF50; /* Green color */
-    color: white;
-    padding: 5px 10px; /* Adjust padding as needed */
-    border: none;
-    border-radius: 4px; /* Match border radius of bike item */
-    cursor: pointer;
-    opacity: 0.7; /* Reduce initial opacity (adjust as needed) */
-  }
-  
-  .bike-item button:disabled { /* Styles for disabled button */
-    opacity: 0.4; /* Lower opacity for disabled button */
-    cursor: not-allowed; /* Indicate disabled state */
-  }
-  
+.bike-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.bike-item label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.bike-item button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.bike-item button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

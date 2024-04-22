@@ -12,17 +12,17 @@ export interface Token {
 }
 
 export interface State {
-  id: number;
+  id: string;
   fullname: string;
   usertype: string;
   token: string;
 }
 
 export const initial_state = {
-  id: 0,
-  fullname: 'Guest',
-  usertype: '',
-  token: '',
+  id: "",
+  fullname: "Guest",
+  usertype: "",
+  token: "",
 };
 export interface StandardResponse {
   data: string;
@@ -35,7 +35,17 @@ export interface Bike {
   status: string;
 }
 
+export interface Booking {
+  _id: string;
+  bike: Bike;
+  book_date: string;
+}
+
 export interface BikeResponse {
   success: boolean;
   data: Bike[];
+}
+export interface BookingResponse {
+  success: boolean;
+  data: Booking[];
 }

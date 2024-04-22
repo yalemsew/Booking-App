@@ -1,1 +1,12 @@
-<p>bike-form works!</p>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <label for="platNumber">Plate number:</label>
+    <input type="text" id="platNumber" formControlName="plate_number">
+
+    <label for="color">Color:</label>
+    <input type="text" id="color" formControlName="color">
+
+    <label for="status">Status:</label>
+    <input type="text" id="status" formControlName="status">
+
+    <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
