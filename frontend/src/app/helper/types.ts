@@ -30,6 +30,7 @@ export interface StandardResponse {
 }
 
 export interface Bike {
+  _id: string;
   plate_number: string;
   color: string;
   status: string;

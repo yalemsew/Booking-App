@@ -16,37 +16,6 @@ import { Router } from "@angular/router";
   templateUrl: "./signup.component.html",
   styleUrl: "./signup.component.css",
 })
-// export class SignupComponent {
-//   authService = inject(AuthService);
-//   #router = inject(Router);
-
-//   myForm = inject(FormBuilder).nonNullable.group({
-//     fullname: ["", Validators.required],
-//     email: ["", [Validators.required, Validators.email]],
-//     password: ["", [Validators.required, Validators.minLength(6)]],
-//   });
-
-//   onSubmit() {
-//     if (this.myForm.valid) {
-//       this.authService
-//         .signup(
-//           this.myForm.value as {
-//             fullname: string;
-//             email: string;
-//             password: string;
-//           }
-//         )
-//         .subscribe({
-//           next: (response) => {
-//             this.#router.navigate(["", "signin"]);
-//           },
-//           error: (err) => {
-//             console.error("Signup failed", err);
-//           },
-//         });
-//     }
-//   }
-// }
 export class SignupComponent implements OnInit {
   // Model for form data
   authService = inject(AuthService);

@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Bike, BikeResponse } from "../helper/types";
+import { Bike, BikeResponse, StandardResponse } from "../helper/types";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
@@ -8,7 +8,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 })
 export class BikeService {
   httpClient = inject(HttpClient);
+  #hostAddBike = "http://localhost:3000/bike";
+  #hostDeleteBike = "http://localhost:3000/bike";
 
+  //adding bike
   getBikes(): Observable<BikeResponse> {
     console.log("Calling bike list service");
     const headers = new HttpHeaders({
@@ -18,13 +21,18 @@ export class BikeService {
       headers: headers,
     });
   }
-  postBikes(newBike: Bike) {
+  postBikes(newBike: Partial<Bike>) {
     console.log("bike list service");
+    return this.httpClient.post<StandardResponse>(this.#hostAddBike, newBike);
   }
-  putBike(updatedBike: Bike) {
-    console.log("updated bike");
-  }
+
   deleteBike(bike_id: string) {
     console.log("bike deleted");
+    const url = `${this.#hostDeleteBike}/${bike_id}`;
+    return this.httpClient.delete<StandardResponse>(url);
+  }
+
+  putBike(updatedBike: Bike) {
+    console.log("updated bike");
   }
 }

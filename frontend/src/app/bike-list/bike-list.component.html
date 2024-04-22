@@ -11,13 +11,16 @@
     <label>plate number: {{bike.plate_number}}</label>
     <label>plate color: {{bike.color}}</label>
     <label>plate: status: {{bike.status}}</label>
-    @if(authService.is_signed_in()){
-    <button>Book</button>
+    <!-- <label>bike_id: {{bike.id}}</label> -->
+    @if(authService.is_signed_in()&&!authService.isAdmin()){
+    <!-- <button (click)="bookBike(bike._id)">Book</button> -->
+    <button (click)="bookBike(bike._id)" [disabled]="bike.status === 'booked'">Book</button>
+    }
     @if(authService.isAdmin()){
     <button (click)="updateBike()">Edit</button>
-    <button>Delete</button>
+    <button (click)="deleteBike(bike._id)">Delete</button>
     }
-    }
+
     <br><br>
 
 
