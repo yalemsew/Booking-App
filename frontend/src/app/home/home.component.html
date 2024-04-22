@@ -1,9 +1,20 @@
 <p>public home page</p>
 
-<a [routerLink]="['/signup']">
-    <button>signup</button>
-</a>
+
+@if(!authService.is_signed_in()){
 <a [routerLink]="['/signin']">
     <button>signin</button>
 </a>
+<a [routerLink]="['/signup']">
+    <button>signup</button>
+</a>
+}
+@if(authService.is_signed_in()){
+<a [routerLink]="['']">
+    <button (click)="signout()">Sign out</button>
+</a>
+}
+
+
+
 <app-bike-list></app-bike-list>

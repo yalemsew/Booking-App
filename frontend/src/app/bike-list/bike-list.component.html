@@ -3,7 +3,7 @@
 @if(authService.isAdmin()){
 <button>Add bike</button>
 }
-@if(authService.isLoggedIn()){
+@if(authService.is_signed_in()){
 <button>Book list</button>
 }
 @for (bike of bikeList;track bike.plate_number){
@@ -11,7 +11,7 @@
     <label>plate number: {{bike.plate_number}}</label>
     <label>plate color: {{bike.color}}</label>
     <label>plate: status: {{bike.status}}</label>
-    @if(authService.isLoggedIn()){
+    @if(authService.is_signed_in()){
     <button>Book</button>
     @if(authService.isAdmin()){
     <button>Edit</button>
