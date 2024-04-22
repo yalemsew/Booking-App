@@ -17,19 +17,15 @@ import { Router } from "@angular/router";
   styleUrl: "./signin.component.css",
 })
 export class SigninComponent {
-  #auth = inject(AuthService);
+  authService = inject(AuthService);
   #router = inject(Router);
-  from = inject(FormBuilder).nonNullable.group({
-    name: "",
-    email: "yalem@miu.edu",
-    password: "",
-  });
+
   myForm: FormGroup;
-  constructor(public authService: AuthService) {
+  constructor() {
     // Initialize an empty FormGroup here
     this.myForm = new FormGroup({
-      email: new FormControl(""),
-      password: new FormControl(""),
+      email: new FormControl("yalem@miu.edu"),
+      password: new FormControl("abcd"),
     });
   }
 
@@ -44,12 +40,11 @@ export class SigninComponent {
   }
 
   onSubmit() {
-    this.#auth
+    this.authService
       .signin(this.myForm.value as { email: string; password: string })
       .subscribe((response) => {
-        const decodedToken = this.#auth.parseJwt(response.data);
-        //   console.log(decodedToken);
-        this.#auth.$state.set({
+        const decodedToken = this.authService.parseJwt(response.data);
+        this.authService.$state.set({
           id: decodedToken.id,
           fullname: decodedToken.fullname,
           usertype: decodedToken.usertype,
@@ -58,8 +53,5 @@ export class SigninComponent {
 
         this.#router.navigate(["", "home"]);
       });
-    // this.authService.login()
-    // this.router.navigate(['/updateProduct']);
-    // You can add code here to submit the form data to a server or do something else with it
   }
 }
