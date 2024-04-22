@@ -14,6 +14,7 @@ import { initial_state } from "../helper/types";
 export class HomeComponent {
   authService = inject(AuthService);
 
+  //reset the state
   signout() {
     this.authService.$state.set(initial_state);
   }

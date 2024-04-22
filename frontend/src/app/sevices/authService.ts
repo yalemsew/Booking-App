@@ -6,23 +6,20 @@ import { StandardResponse, State, User, initial_state } from "../helper/types";
   providedIn: "root",
 })
 export class AuthService {
-  // host = "http://localhost:3000/users/signin";
-
   #hostSignin = "http://localhost:3000/users/signin";
   #hostSignup = "http://localhost:3000/users/signup";
   readonly #http = inject(HttpClient);
   $state = signal<State>(initial_state);
 
+  signup(data: { fullname: string; email: string; password: string }) {
+    return this.#http.post<StandardResponse>(this.#hostSignup, data);
+  }
   signin(credentials: { email: string; password: string }) {
     return this.#http.post<StandardResponse>(this.#hostSignin, credentials);
   }
 
   is_signed_in() {
     return this.$state().token ? true : false;
-  }
-
-  signup(data: { fullname: string; email: string; password: string }) {
-    return this.#http.post<StandardResponse>(this.#hostSignup, data);
   }
 
   constructor(private http: HttpClient) {
@@ -49,7 +46,7 @@ export class AuthService {
 
       return JSON.parse(jsonPayload);
     } catch (error) {
-      return null; // or handle the error in a way that's appropriate for your app
+      return null;
     }
   }
 

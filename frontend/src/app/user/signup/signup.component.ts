@@ -63,16 +63,15 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = new FormGroup({
-      fullname: new FormControl("", Validators.required),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", Validators.required),
+      fullname: new FormControl("Aman", Validators.required),
+      email: new FormControl("aman@miu.edu", [
+        Validators.required,
+        Validators.email,
+      ]),
+      password: new FormControl("1234abcd", Validators.required),
     });
   }
 
-  // onSubmit() {
-  //   console.log(this.myForm.value);
-  //   // You can add code here to submit the form data to a server or do something else with it
-  // }
   onSubmit() {
     if (this.myForm.valid) {
       this.authService
@@ -84,6 +83,7 @@ export class SignupComponent implements OnInit {
           }
         )
         .subscribe((response) => {
+          this.#router.navigate(["", "signin"]);
           console.log(response);
           // this.#router.navigate(["", "home"]);
         });
