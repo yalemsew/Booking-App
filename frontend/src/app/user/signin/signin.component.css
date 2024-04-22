@@ -1,0 +1,35 @@
+form {
+  display: flex; /* Arrange elements horizontally */
+  flex-direction: column; /* Stack elements vertically */
+  gap: 10px; /* Add spacing between form elements */
+  width: fit-content; /* Adjust width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+label {
+  display: block; /* Display labels on their own line */
+  margin-bottom: 5px; /* Add space between label and input */
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Add rounded corners */
+  width: 100%; /* Make inputs full width */
+}
+
+button[type="submit"] {
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px; /* Match input style */
+  cursor: pointer;
+  opacity: 0.7; /* Reduce initial opacity (adjust as needed) */
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.4; /* Lower opacity for disabled button */
+  cursor: not-allowed; /* Indicate disabled state */
+}
