@@ -1,0 +1,26 @@
+<p>bike-list works!</p>
+
+@if(authService.isAdmin()){
+<button>Add bike</button>
+}
+@if(authService.isLoggedIn()){
+<button>Book list</button>
+}
+@for (bike of bikeList;track bike.plate_number){
+<div class="bike-item">
+    <label>plate number: {{bike.plate_number}}</label>
+    <label>plate color: {{bike.color}}</label>
+    <label>plate: status: {{bike.status}}</label>
+    @if(authService.isLoggedIn()){
+    <button>Book</button>
+    @if(authService.isAdmin()){
+    <button>Edit</button>
+    <button>Delete</button>
+    }
+    }
+    <br>
+    <br>
+
+</div>
+
+}
