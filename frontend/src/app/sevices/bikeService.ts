@@ -18,7 +18,13 @@ export class BikeService {
       headers: headers,
     });
   }
-  addBikes(newBike: Bike) {
+  postBikes(newBike: Bike) {
     console.log("bike list service");
+  }
+  putBike(updatedBike: Bike) {
+    console.log("updated bike");
+  }
+  deleteBike(bike_id: string) {
+    console.log("bike deleted");
   }
 }

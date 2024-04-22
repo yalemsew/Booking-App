@@ -15,4 +15,11 @@
 </a>
 }
 
+@if(authService.isAdmin()){
+<button (click)="addBike()">Add bike</button>
+}
+@if(authService.is_signed_in()){
+<button (click)="bookList()">Book list</button>
+}
+
 <app-bike-list></app-bike-list>

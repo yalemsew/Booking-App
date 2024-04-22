@@ -24,13 +24,6 @@ export class SigninComponent {
   constructor() {
     // Initialize an empty FormGroup here
     this.myForm = new FormGroup({
-      email: new FormControl("yalem@miu.edu"),
-      password: new FormControl("abcd"),
-    });
-  }
-
-  ngOnInit() {
-    this.myForm = new FormGroup({
       email: new FormControl("yalem@miu.edu", [
         Validators.required,
         Validators.email,
@@ -39,17 +32,29 @@ export class SigninComponent {
     });
   }
 
+  // ngOnInit() {
+  //   this.myForm = new FormGroup({
+  //     email: new FormControl("yalem@miu.edu", [
+  //       Validators.required,
+  //       Validators.email,
+  //     ]),
+  //     password: new FormControl("1234abcd", Validators.required),
+  //   });
+  // }
+
   onSubmit() {
     this.authService
       .signin(this.myForm.value as { email: string; password: string })
       .subscribe((response) => {
         const decodedToken = this.authService.parseJwt(response.data);
+        //update the state with new user state
         this.authService.$state.set({
-          id: decodedToken.id,
+          id: decodedToken._id,
           fullname: decodedToken.fullname,
           usertype: decodedToken.usertype,
           token: response.data,
         });
+        console.log("userId", this.authService.$state());
 
         this.#router.navigate(["", "home"]);
       });

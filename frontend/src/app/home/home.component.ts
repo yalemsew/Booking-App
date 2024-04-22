@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { BikeListComponent } from "../bike-list/bike-list.component";
 import { AuthService } from "../sevices/authService";
 import { initial_state } from "../helper/types";
@@ -13,9 +13,20 @@ import { initial_state } from "../helper/types";
 })
 export class HomeComponent {
   authService = inject(AuthService);
+  #router = inject(Router);
 
   //reset the state
   signout() {
     this.authService.$state.set(initial_state);
+  }
+
+  addBike() {
+    console.log("add button clicked");
+    this.#router.navigate(["bikeForm"]);
+  }
+
+  bookList() {
+    console.log("add button clicked");
+    this.#router.navigate(["bookList"]);
   }
 }

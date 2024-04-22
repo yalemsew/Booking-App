@@ -8,17 +8,18 @@ import { BikeComponent } from "./bike/bike.component";
 import { BikeListComponent } from "./bike-list/bike-list.component";
 import { HomeComponent } from "./home/home.component";
 import { BookingListComponent } from "./user-home/booking-list/booking-list.component";
+import { BikeFormComponent } from "./bike/bike-form/bike-form.component";
+import { BookListComponent } from "./booking/book-list/book-list.component";
 
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
   { path: "signin", component: SigninComponent },
-  //   { path: 'bikeList', component: BikeListComponent },
   { path: "signup", component: SignupComponent },
   { path: "bike", component: BikeComponent },
+  { path: "bikeForm", component: BikeFormComponent },
   { path: "bikeList", component: BikeListComponent },
-  //   { path: 'bike', component: BikeComponent },
-  //   { path: 'bike', component: BikeComponent },
-  //   { path: 'bike', component: BikeComponent },
+  { path: "bookList", component: BookListComponent },
+
   { path: "**", component: OuchComponent },
 ];

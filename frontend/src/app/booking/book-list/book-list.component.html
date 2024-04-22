@@ -1,1 +1,12 @@
 <p>book-list works!</p>
+
+@for (booking of BookingList;track booking.bike.plate_number){
+<div class="bike-item">
+    <label>plate number: {{ booking.bike.plate_number }}</label>
+    <label>plate color: {{ booking.bike.color }}</label>
+    <label>book date: {{ booking.book_date }}</label>
+
+    <button (click)="updateBooking(booking._id)">Edit</button>
+    <button (click)="deleteBooking(booking._id)">Delete</button>
+</div>
+}
