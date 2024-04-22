@@ -29,7 +29,9 @@ export class BookingService {
   putBooking(updatedBooking: Booking) {
     console.log("updated Booking");
   }
-  deleteBooking(Booking_id: string) {
+  deleteBooking(booking_id: string) {
     console.log("Booking deleted");
+    const url = `${this.#hostBooking}/${booking_id}`;
+    return this.httpClient.delete<StandardResponse>(url);
   }
 }

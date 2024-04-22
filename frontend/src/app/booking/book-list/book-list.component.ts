@@ -19,11 +19,11 @@ export class BookListComponent {
 
   BookingList: Booking[] = [];
   #router = inject(Router);
-  bookingService = inject(BookingService);
+  bookService = inject(BookingService);
   authService = inject(AuthService);
 
   ngOnInit(): void {
-    this.bookingService.getBookings().subscribe((data) => {
+    this.bookService.getBookings().subscribe((data) => {
       {
         this.BookingList = data.data;
         console.log("========getBookings data fetched=========");
@@ -35,7 +35,11 @@ export class BookListComponent {
 
   deleteBooking(booking_id: string) {
     console.log("add button clicked");
-    this.#router.navigate(["BookingForm"]);
+
+    return this.bookService.deleteBooking(booking_id).subscribe((data) => {
+      console.log(data);
+      this.#router.navigate(["home"]);
+    });
   }
 
   updateBooking(booking_id: string) {
