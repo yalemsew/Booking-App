@@ -55,6 +55,10 @@ export class AuthService {
     return this.$state().usertype == "admin";
   }
 
+  isUser(): boolean {
+    return this.$state().usertype == "user";
+  }
+
   //return jsonpayload data with the token itself
   parseJwt(token: string) {
     try {
