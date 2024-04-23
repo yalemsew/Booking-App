@@ -27,7 +27,7 @@ export const routes: Routes = [
         pathMatch: "full"
     }, {
         path: "home",
-        canActivate: [() => inject(AuthService).is_signed_in() || !inject(AuthService).is_signed_in()],
+        //canActivate: [() => inject(AuthService).is_signed_in() || !inject(AuthService).is_signed_in()],
         loadComponent: () => import("./home/home.component").then(c => c.HomeComponent),
     }, {
         path: "signin",
@@ -46,7 +46,7 @@ export const routes: Routes = [
     }, {
         path: "bookList",
         canActivate: [() => inject(AuthService).isUser()],
-        loadComponent: () => import("./booking/book-list/book-list.component").then(c => c.BookListComponent),
+        loadComponent: () => import("./booking/book-list/book-list.component").then(c => c.BookListComponent)
     }, {
         path: "**",
         loadComponent: () => import("./helper/ErrorPage").then(c => c.OuchComponent),
