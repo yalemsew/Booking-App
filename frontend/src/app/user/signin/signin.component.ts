@@ -8,6 +8,7 @@ import {
 } from "@angular/forms";
 import { AuthService } from "../../sevices/authService";
 import { Router } from "@angular/router";
+import { State } from "../../helper/types";
 
 @Component({
   selector: "app-signin",
@@ -32,29 +33,20 @@ export class SigninComponent {
     });
   }
 
-  // ngOnInit() {
-  //   this.myForm = new FormGroup({
-  //     email: new FormControl("yalem@miu.edu", [
-  //       Validators.required,
-  //       Validators.email,
-  //     ]),
-  //     password: new FormControl("1234abcd", Validators.required),
-  //   });
-  // }
-
   onSubmit() {
     this.authService
       .signin(this.myForm.value as { email: string; password: string })
       .subscribe((response) => {
-        const decodedToken = this.authService.parseJwt(response.data);
-        //update the state with new user state
-        this.authService.$state.set({
-          id: decodedToken._id,
+        const decodedToken: State = this.authService.parseJwt(response.data);
+        const tokenData = {
+          id: decodedToken.id,
           fullname: decodedToken.fullname,
           usertype: decodedToken.usertype,
           token: response.data,
-        });
-        console.log("userId", this.authService.$state());
+        };
+        //update the state with new user state
+        this.authService.$state.set(tokenData);
+        this.authService.saveTokenData(tokenData);
 
         this.#router.navigate(["", "home"]);
       });

@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, effect, inject, signal } from "@angular/core";
 import * as moment from "moment";
 import { StandardResponse, State, User, initial_state } from "../helper/types";
+import { Token } from "@angular/compiler";
+import { Router } from "@angular/router";
 @Injectable({
   providedIn: "root",
 })
@@ -10,6 +12,21 @@ export class AuthService {
   #hostSignup = "http://localhost:3000/users/signup";
   readonly #http = inject(HttpClient);
   $state = signal<State>(initial_state);
+  TOKEN_DATA: string = "TOKEN_DATA";
+
+  constructor(private http: HttpClient, private router: Router) {
+    const tokenData: string | null = localStorage.getItem("TOKEN_DATA");
+    if (tokenData) {
+      const parsedTokenData: State = JSON.parse(tokenData);
+      if (parsedTokenData.token) {
+        this.$state.set(parsedTokenData);
+      }
+    }
+
+    effect(() => {
+      localStorage.setItem(this.TOKEN_DATA, JSON.stringify(this.$state()));
+    });
+  }
 
   signup(data: { fullname: string; email: string; password: string }) {
     return this.#http.post<StandardResponse>(this.#hostSignup, data);
@@ -22,15 +39,23 @@ export class AuthService {
     return this.$state().token ? true : false;
   }
 
-  constructor(private http: HttpClient) {
-    effect(() => {
-      localStorage.setItem("DUMMY_STATE", JSON.stringify(this.$state()));
-    });
+  saveTokenData(state: State) {
+    localStorage.setItem(this.TOKEN_DATA, JSON.stringify(state));
   }
+
+  getTokenData() {
+    const tokenData = localStorage.getItem("token");
+    if (!tokenData) {
+      return undefined;
+    }
+    return tokenData;
+  }
+
   isAdmin(): boolean {
     return this.$state().usertype == "admin";
   }
 
+  //return jsonpayload data with the token itself
   parseJwt(token: string) {
     try {
       const base64Url = token.split(".")[1];
@@ -49,37 +74,4 @@ export class AuthService {
       return null;
     }
   }
-
-  // login(email: string, password: string) {
-  //   return this.http.post<User>(this.host, { email, password });
-  //   //   .pipe(do((res) => this.setSession))
-  //   //   .shareReplay();
-  // }
-
-  // private setSession(authResult: any) {
-  //   // const expiresAt = moment().add(authResult.expiresIn, 'second');
-
-  //   localStorage.setItem("id_token", authResult.idToken);
-  //   localStorage.setItem("expires_at", JSON.stringify(new Date().valueOf()));
-  // }
-
-  // logout() {
-  //   localStorage.removeItem("id_token");
-  //   localStorage.removeItem("expires_at");
-  // }
-
-  // public isLoggedIn(): boolean {
-  //   // return moment().isBefore(this.getExpiration());
-  //   return true;
-  // }
-
-  // isLoggedOut() {
-  //   // return !this.isLoggedIn();
-  // }
-
-  //   getExpiration() {
-  //     const expiration = localStorage.getItem('expires_at');
-  //     const expiresAt = JSON.parse(expiration);
-  //     return moment(expiresAt);
-  //   }
 }

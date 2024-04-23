@@ -15,7 +15,6 @@ import { Router } from "@angular/router";
 })
 export class BookListComponent {
   http = inject(HttpClient);
-  // interceptor = inject(addTokenInterceptor);
 
   BookingList: Booking[] = [];
   #router = inject(Router);
@@ -23,22 +22,19 @@ export class BookListComponent {
   authService = inject(AuthService);
 
   ngOnInit(): void {
-    this.bookService.getBookings().subscribe((data) => {
-      {
-        this.BookingList = data.data;
-        console.log("========getBookings data fetched=========");
-        console.log(JSON.stringify(data.data));
-        console.log("array data", this.BookingList);
-      }
-    });
+    this.getAllBookings();
+  }
+
+  getAllBookings() {
+    this.bookService
+      .getBookings()
+      .subscribe((data) => (this.BookingList = data.data));
   }
 
   deleteBooking(booking_id: string) {
-    console.log("add button clicked");
-
     return this.bookService.deleteBooking(booking_id).subscribe((data) => {
-      console.log(data);
-      this.#router.navigate(["home"]);
+      this.getAllBookings();
+      this.#router.navigate(["bookList"]);
     });
   }
 

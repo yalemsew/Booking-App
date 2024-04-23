@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, signal } from "@angular/core";
 import { Bike, BikeResponse, StandardResponse } from "../helper/types";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -7,13 +7,14 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
   providedIn: "root",
 })
 export class BikeService {
+  bikeData: Bike | undefined; //this going to be add or updated
+
   httpClient = inject(HttpClient);
   #hostAddBike = "http://localhost:3000/bike";
   #hostDeleteBike = "http://localhost:3000/bike";
 
-  //adding bike
+  //get bike
   getBikes(): Observable<BikeResponse> {
-    console.log("Calling bike list service");
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
     });
@@ -21,18 +22,19 @@ export class BikeService {
       headers: headers,
     });
   }
+  //adding bike
   postBikes(newBike: Partial<Bike>) {
-    console.log("bike list service");
     return this.httpClient.post<StandardResponse>(this.#hostAddBike, newBike);
   }
 
+  //delete bike
   deleteBike(bike_id: string) {
-    console.log("bike deleted");
     const url = `${this.#hostDeleteBike}/${bike_id}`;
     return this.httpClient.delete<StandardResponse>(url);
   }
 
-  putBike(updatedBike: Bike) {
-    console.log("updated bike");
+  updateBike(bike: Partial<Bike>) {
+    const url = `${this.#hostDeleteBike}/${this.bikeData?._id || "__"}`;
+    return this.httpClient.put<StandardResponse>(url, bike);
   }
 }

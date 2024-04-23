@@ -2,9 +2,14 @@ export interface User {
   id: number;
   fullname: string;
   email: string;
-  usertype: string;
+  usertype: Role;
   location: string;
   booking: string;
+}
+
+export enum Role {
+  user = "user",
+  admin = "admin",
 }
 
 export interface Token {

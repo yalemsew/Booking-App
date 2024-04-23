@@ -21,6 +21,7 @@ export class BikeFormComponent {
   bikeService = inject(BikeService);
   #router = inject(Router);
   myForm: FormGroup;
+  isEdit: boolean = false;
   constructor() {
     // Initialize an empty FormGroup here
     this.myForm = new FormGroup({
@@ -30,22 +31,45 @@ export class BikeFormComponent {
     });
   }
 
-  ngOnInit() {}
-  //add bike by the admin
+  ngOnInit(): void {
+    if (this.bikeService.bikeData) {
+      this.isEdit = true;
+      this.myForm.setValue({
+        plate_number: this.bikeService.bikeData.plate_number,
+        color: this.bikeService.bikeData.color || "",
+        status: this.bikeService.bikeData.status,
+      });
+    }
+  }
+  //add and update a bike by the admin
   onSubmit() {
     console.log(this.myForm.value);
     if (this.myForm.valid) {
-      this.bikeService
-        .postBikes(
-          this.myForm.value as {
-            plate_number: string;
-            color: string;
-            status: string;
-          }
-        )
-        .subscribe((response) => {
-          this.#router.navigate(["", "home"]);
-        });
+      if (this.isEdit) {
+        this.bikeService
+          .updateBike(
+            this.myForm.value as {
+              plate_number: string;
+              color: string;
+              status: string;
+            }
+          )
+          .subscribe((response) => {
+            this.#router.navigate(["", "home"]);
+          });
+      } else {
+        this.bikeService
+          .postBikes(
+            this.myForm.value as {
+              plate_number: string;
+              color: string;
+              status: string;
+            }
+          )
+          .subscribe((response) => {
+            this.#router.navigate(["", "home"]);
+          });
+      }
     }
     // You can add code here to submit the form data to a server or do something else with it
   }

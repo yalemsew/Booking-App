@@ -1,16 +1,13 @@
-/* Style the form container */
 form {
     width: 300px;
     margin: 0 auto;
   }
   
-  /* Style form labels */
   label {
     display: block;
     margin-bottom: 5px;
   }
   
-  /* Style form inputs */
   input {
     width: 100%;
     padding: 8px;
@@ -18,7 +15,6 @@ form {
     box-sizing: border-box;
   }
   
-  /* Style the submit button */
   button {
     padding: 8px 20px;
     background-color: #007bff;
@@ -27,7 +23,6 @@ form {
     cursor: pointer;
   }
   
-  /* Disable the submit button when form is invalid */
   button[disabled] {
     background-color: #ccc;
     cursor: not-allowed;
