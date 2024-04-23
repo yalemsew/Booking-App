@@ -1,3 +1,25 @@
+// import { Injectable, inject } from '@angular/core';
+// import { Router, UrlTree } from '@angular/router';
+// import { AuthService } from './authService';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class CheckRoleGuard {
+//   constructor(private router: Router = inject(Router), private authService: AuthService = inject(AuthService)) {}
+//   canActivate(): boolean | UrlTree {
+//     if (this.authService.isUser()) {
+//       return true;
+//     } else {
+//       return this.router.createUrlTree(['/ouch']);
+//     }
+//   }
+// }
+
+
+
+
+
 import { Injectable } from "@angular/core";
 import {
   Router,
