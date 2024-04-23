@@ -1,23 +1,16 @@
 <p>bike-list works!</p>
 
-<!-- @if(authService.isAdmin()){
-<button (click)="addBike()">Add bike</button>
-}
-@if(authService.is_signed_in()){
-<button>Book list</button>
-} -->
+
 @for (bike of bikeList;track bike.plate_number){
 <div class="bike-item">
-    <label>plate number: {{bike.plate_number}}</label>
-    <label>plate color: {{bike.color}}</label>
-    <label>plate: status: {{bike.status}}</label>
-    <!-- <label>bike_id: {{bike.id}}</label> -->
+    <label>Bike plate-number: {{bike.plate_number}}</label>
+    <label>Bike color: {{bike.color}}</label>
+    <label>Bike status: {{bike.status}}</label>
     @if(authService.is_signed_in()&&!authService.isAdmin()){
-    <!-- <button (click)="bookBike(bike._id)">Book</button> -->
     <button (click)="bookBike(bike._id)" [disabled]="bike.status === 'booked'">Book</button>
     }
     @if(authService.isAdmin()){
-    <button (click)="updateBike()">Edit</button>
+    <button (click)="updateBike(bike)">Edit</button>
     <button (click)="deleteBike(bike._id)">Delete</button>
     }
 

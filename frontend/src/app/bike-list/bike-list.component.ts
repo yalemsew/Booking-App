@@ -19,29 +19,31 @@ export class BikeListComponent implements OnInit {
   authService = inject(AuthService);
   bookService = inject(BookingService);
 
+  //initialize the view
   ngOnInit(): void {
-    this.bikeService.getBikes().subscribe((data) => {
-      {
-        this.bikeList = data.data;
-        console.log("========getBikes data fetched=========");
-        console.log(JSON.stringify(data));
-      }
-    });
-    console.log(this.bikeList[3]);
+    this.getAllBikes();
   }
 
-  updateBike() {
-    console.log("add button clicked");
+  getAllBikes() {
+    this.bikeService
+      .getBikes()
+      .subscribe((data) => (this.bikeList = data.data));
+  }
+
+  updateBike(bike: Bike) {
+    this.bikeService.bikeData = bike;
     this.#router.navigate(["bikeForm"]);
   }
+
   deleteBike(bike_id: string) {
     return this.bikeService.deleteBike(bike_id).subscribe((data) => {
-      console.log(data);
+      this.getAllBikes();
+      this.#router.navigate(["home"]);
     });
   }
+
   bookBike(bike_id: string) {
     return this.bookService.postBooking(bike_id).subscribe((data) => {
-      console.log(data);
       this.#router.navigate(["bookList"]);
     });
   }
