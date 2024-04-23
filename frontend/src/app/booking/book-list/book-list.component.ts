@@ -15,7 +15,6 @@ import { Router } from "@angular/router";
 })
 export class BookListComponent {
   http = inject(HttpClient);
-  // interceptor = inject(addTokenInterceptor);
 
   BookingList: Booking[] = [];
   #router = inject(Router);
