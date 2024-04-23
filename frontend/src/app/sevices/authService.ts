@@ -21,11 +21,6 @@ export class AuthService {
       if (parsedTokenData.token) {
         this.$state.set(parsedTokenData);
       }
-      // else {
-      //   this.router.navigate(["/"]);
-      // }
-    } else {
-      // this.router.navigate(["/"]);
     }
 
     effect(() => {
