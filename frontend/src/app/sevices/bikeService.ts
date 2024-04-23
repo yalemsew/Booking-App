@@ -10,8 +10,7 @@ export class BikeService {
   bikeData: Bike | undefined; //this going to be add or updated
 
   httpClient = inject(HttpClient);
-  #hostAddBike = "http://localhost:3000/bike";
-  #hostDeleteBike = "http://localhost:3000/bike";
+  #hostBike = "http://localhost:3000/bike";
 
   //get bike
   getBikes(): Observable<BikeResponse> {
@@ -24,17 +23,17 @@ export class BikeService {
   }
   //adding bike
   postBikes(newBike: Partial<Bike>) {
-    return this.httpClient.post<StandardResponse>(this.#hostAddBike, newBike);
+    return this.httpClient.post<StandardResponse>(this.#hostBike, newBike);
   }
 
   //delete bike
   deleteBike(bike_id: string) {
-    const url = `${this.#hostDeleteBike}/${bike_id}`;
+    const url = `${this.#hostBike}/${bike_id}`;
     return this.httpClient.delete<StandardResponse>(url);
   }
 
   updateBike(bike: Partial<Bike>) {
-    const url = `${this.#hostDeleteBike}/${this.bikeData?._id || "__"}`;
+    const url = `${this.#hostBike}/${this.bikeData?._id || "__"}`;
     return this.httpClient.put<StandardResponse>(url, bike);
   }
 }

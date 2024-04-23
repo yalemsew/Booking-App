@@ -1,3 +1,25 @@
+// import { Injectable, inject } from '@angular/core';
+// import { Router, UrlTree } from '@angular/router';
+// import { AuthService } from './authService';
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class CheckRoleGuard {
+//   constructor(private router: Router = inject(Router), private authService: AuthService = inject(AuthService)) {}
+//   canActivate(): boolean | UrlTree {
+//     if (this.authService.isUser()) {
+//       return true;
+//     } else {
+//       return this.router.createUrlTree(['/ouch']);
+//     }
+//   }
+// }
+
+
+
+
+
 import { Injectable } from "@angular/core";
 import {
   Router,
@@ -18,17 +40,12 @@ export class AuthGuardService {
     const user = this.authService.$state();
 
     if (user) {
-      // check if route is restricted by role
-
       if (allowedRoles && !allowedRoles.includes(user.usertype)) {
-        // role not authorized so redirect to home page
         this.router.navigate(["/signin"]);
         return false;
       }
-      // authorized so return true
       return true;
     }
-    // not logged in so redirect to login page with the return url
     this.router.navigate(["/signin"], {
       queryParams: { returnUrl: state.url },
     });

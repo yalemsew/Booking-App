@@ -10,7 +10,6 @@ import { AuthService } from "./authService";
 })
 export class BookingService {
   httpClient = inject(HttpClient);
-  //   interceptor = inject(addTokenInterceptor);
   authService = inject(AuthService);
   userId: string = this.authService.$state().id;
 
@@ -26,9 +25,6 @@ export class BookingService {
     return this.httpClient.get<any>(this.#hostBooking);
   }
 
-  putBooking(updatedBooking: Booking) {
-    console.log("updated Booking");
-  }
   deleteBooking(booking_id: string) {
     console.log("Booking deleted");
     const url = `${this.#hostBooking}/${booking_id}`;
