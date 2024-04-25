@@ -8,8 +8,8 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class AuthService {
-  #hostSignin = "http://localhost:3000/users/signin";
-  #hostSignup = "http://localhost:3000/users/signup";
+  #hostSignin = "http://localhost:3000/user/signin";
+  #hostSignup = "http://localhost:3000/user/signup";
   readonly #http = inject(HttpClient);
   $state = signal<State>(initial_state);
   TOKEN_DATA: string = "TOKEN_DATA";
@@ -39,9 +39,9 @@ export class AuthService {
     return this.$state().token ? true : false;
   }
 
-  saveTokenData(state: State) {
-    localStorage.setItem(this.TOKEN_DATA, JSON.stringify(state));
-  }
+  // saveTokenData(state: State) {
+  //   localStorage.setItem(this.TOKEN_DATA, JSON.stringify(state));
+  // }
 
   getTokenData() {
     const tokenData = localStorage.getItem("token");

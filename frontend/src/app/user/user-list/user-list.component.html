@@ -1,0 +1,10 @@
+<p>user-list works!</p>
+
+@for (user of userList;track user.email){
+<div class="bike-item">
+    <label>Name: {{ user.fullname }}</label>
+    <label>Email {{ user.email }}</label>
+    <label>Role: {{user.usertype }}</label>
+    <label>Location: {{user.location }}</label>
+</div>
+}

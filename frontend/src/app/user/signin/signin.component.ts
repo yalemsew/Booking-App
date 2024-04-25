@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { AuthService } from "../../sevices/authService";
+import { AuthService } from "../../services/authService";
 import { Router } from "@angular/router";
 import { State } from "../../helper/types";
 
@@ -46,7 +46,7 @@ export class SigninComponent {
         };
         //update the state with new user state
         this.authService.$state.set(tokenData);
-        this.authService.saveTokenData(tokenData);
+        // this.authService.saveTokenData(tokenData);
 
         this.#router.navigate(["", "home"]);
       });

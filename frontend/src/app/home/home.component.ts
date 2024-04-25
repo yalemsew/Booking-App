@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { BikeListComponent } from "../bike-list/bike-list.component";
-import { AuthService } from "../sevices/authService";
+import { AuthService } from "../services/authService";
 import { initial_state } from "../helper/types";
 
 @Component({
@@ -28,5 +28,8 @@ export class HomeComponent {
   bookList() {
     console.log("add button clicked");
     this.#router.navigate(["bookList"]);
+  }
+  userList() {
+    this.#router.navigate(["userList"]);
   }
 }

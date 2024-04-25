@@ -9,7 +9,7 @@ import {
   withInterceptors,
 } from "@angular/common/http";
 import { provideClientHydration } from "@angular/platform-browser";
-import { addTokenInterceptor } from "./sevices/token.interceptor";
+import { addTokenInterceptor } from "./services/token.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [

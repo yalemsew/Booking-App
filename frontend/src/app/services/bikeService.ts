@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from "@angular/core";
+import { Injectable, OnDestroy, inject, signal } from "@angular/core";
 import { Bike, BikeResponse, StandardResponse } from "../helper/types";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -11,7 +11,6 @@ export class BikeService {
 
   httpClient = inject(HttpClient);
   #hostBike = "http://localhost:3000/bike";
-
   //get bike
   getBikes(): Observable<BikeResponse> {
     const headers = new HttpHeaders({
@@ -34,6 +33,7 @@ export class BikeService {
 
   updateBike(bike: Partial<Bike>) {
     const url = `${this.#hostBike}/${this.bikeData?._id || "__"}`;
+
     return this.httpClient.put<StandardResponse>(url, bike);
   }
 }

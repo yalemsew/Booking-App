@@ -16,7 +16,7 @@ app.use(cors());
 // app.use(morgan("dev")); //for log purpose
 
 // routers
-app.use("/users", userRouter);
+app.use("/user", userRouter);
 app.use("/bike", bikeRouters);
 app.use("/booking", verifyToken, bookingRouters);
 

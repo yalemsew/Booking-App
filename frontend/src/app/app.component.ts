@@ -2,7 +2,7 @@ import { Component, inject, signal, OnInit } from "@angular/core";
 import { RouterOutlet, RouterModule } from "@angular/router";
 import { SignupComponent } from "./user/signup/signup.component";
 import { initFlowbite } from "flowbite";
-import { AuthService } from "./sevices/authService";
+import { AuthService } from "./services/authService";
 import { initial_state } from "./helper/types";
 
 @Component({

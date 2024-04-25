@@ -55,3 +55,7 @@ export interface BookingResponse {
   success: boolean;
   data: Booking[];
 }
+export interface UserResponse {
+  success: boolean;
+  data: User[];
+}

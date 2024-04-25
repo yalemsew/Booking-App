@@ -5,8 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { AuthService } from "../../sevices/authService";
-import { BikeService } from "../../sevices/bikeService";
+import { AuthService } from "../../services/authService";
+import { BikeService } from "../../services/bikeService";
 import { Router } from "@angular/router";
 
 @Component({

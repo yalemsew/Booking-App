@@ -16,10 +16,6 @@
 //   }
 // }
 
-
-
-
-
 import { Injectable } from "@angular/core";
 import {
   Router,
@@ -34,7 +30,7 @@ export class AuthGuardService {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const { roles: allowedRoles } = route.data;
-    if (allowedRoles?.length && allowedRoles[0] == "") {
+    if (allowedRoles[0] == "") {
       return true;
     }
     const user = this.authService.$state();
@@ -46,9 +42,7 @@ export class AuthGuardService {
       }
       return true;
     }
-    this.router.navigate(["/signin"], {
-      queryParams: { returnUrl: state.url },
-    });
+    this.router.navigate(["/signin"]);
     return false;
   }
 }

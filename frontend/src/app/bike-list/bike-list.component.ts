@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from "@angular/core";
 import { Bike, StandardResponse } from "../helper/types";
-import { BikeService } from "../sevices/bikeService";
+import { BikeService } from "../services/bikeService";
 import { Router } from "@angular/router";
-import { AuthService } from "../sevices/authService";
-import { BookingService } from "../sevices/bookingService";
+import { AuthService } from "../services/authService";
+import { BookingService } from "../services/bookingService";
 
 @Component({
   selector: "app-bike-list",

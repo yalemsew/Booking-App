@@ -1,9 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, inject } from "@angular/core";
-import { addTokenInterceptor } from "../../sevices/token.interceptor";
 import { Booking } from "../../helper/types";
-import { BookingService } from "../../sevices/bookingService";
-import { AuthService } from "../../sevices/authService";
+import { BookingService } from "../../services/bookingService";
+import { AuthService } from "../../services/authService";
 import { Router } from "@angular/router";
 
 @Component({
@@ -19,7 +18,7 @@ export class BookListComponent {
   BookingList: Booking[] = [];
   #router = inject(Router);
   bookService = inject(BookingService);
-  authService = inject(AuthService);
+  // authService = inject(AuthService);
 
   ngOnInit(): void {
     this.getAllBookings();
